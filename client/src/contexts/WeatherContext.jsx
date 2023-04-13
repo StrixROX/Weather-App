@@ -12,13 +12,6 @@ function WeatherProvider({ children }) {
 
   useEffect(() => {
     const getWeatherData = async () => {
-      const weatherCurrent = await axios
-        .get(`${BASE_URL}/${city}/current`)
-        .then((res) => res.data)
-        .catch((err) => {
-          console.log(err)
-        })
-
       const weatherForecast = await axios
         .get(`${BASE_URL}/${city}/forecast`)
         .then((res) => res.data)
@@ -26,7 +19,7 @@ function WeatherProvider({ children }) {
           console.log(err)
         })
 
-      return { current: weatherCurrent, forecast: weatherForecast }
+      return { forecast: weatherForecast }
     }
 
     getWeatherData().then((res) => useWeatherData({ ...weatherData, ...res }))
