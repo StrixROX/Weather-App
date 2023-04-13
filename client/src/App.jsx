@@ -1,13 +1,13 @@
 import "./css/app.css"
 
-import { WeatherSimple } from "./components/WeatherSimple"
+import { WeatherWidget } from "./components/WeatherWidget"
 import { WeatherProvider } from "./contexts/WeatherContext"
 
 function App() {
   return (
     <div className="wrapper weather-app">
       <WeatherProvider>
-        <WeatherSimple />
+        <WeatherWidget />
       </WeatherProvider>
     </div>
   )
