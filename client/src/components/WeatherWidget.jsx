@@ -1,50 +1,31 @@
 import "../css/weather-widget.css"
 
-import { useContext, useState, useEffect } from "react"
+import { useContext, useState } from "react"
 import { WeatherContext } from "../contexts/WeatherContext"
 
-function WeatherWidget() {
+const getLocation = (weather) => {
+  const locationData = weather?.forecast?.location
+  const res = [locationData?.name, locationData?.region, locationData?.country]
+    .filter((el) => typeof el != "undefined")
+    .join(", ")
+
+  return res
+}
+
+function WeatherWidget({ fullscreen }) {
   const weather = useContext(WeatherContext)
+
+  return fullscreen
+    ? WeatherWidgetFullscreen(weather)
+    : WeatherWidgetSimple(weather)
+}
+
+function WeatherWidgetSimple(weather) {
+  const location = getLocation(weather)
   const [expand, useExpand] = useState(false)
-  const [fullscreenView, useFullscreenView] = useState(false)
-
-  // tracks viewport size
-  useEffect(() => {
-    const handleWindowResize = () => {
-      const currWidth = window.innerWidth
-      const currHeight = window.innerHeight
-
-      if (currWidth < 700 || currHeight < 700) {
-        useFullscreenView(true)
-      } else {
-        useFullscreenView(false)
-      }
-    }
-
-    window.addEventListener("resize", handleWindowResize)
-
-    return () => {
-      window.removeEventListener("resize", handleWindowResize)
-    }
-  }, [])
-
-  const getLocation = () => {
-    const locationData = weather?.forecast?.location
-    const res = [
-      locationData?.name,
-      locationData?.region,
-      locationData?.country,
-    ]
-      .filter((el) => typeof el != "undefined")
-      .join(", ")
-
-    return res
-  }
 
   return (
-    <div
-      className={`wrapper weather-widget ${fullscreenView ? "vertical" : ""}`}
-    >
+    <div className="wrapper weather-widget">
       <div className="row full --main">
         <img
           src={
@@ -54,9 +35,9 @@ function WeatherWidget() {
           className="icon"
         />
         <div className="data col left full">
-          <div className="row right full">
-            <img src="/src/assets/location.png" width="16" />
-            <span className="size-1">{getLocation()}</span>
+          <div className="row right full --location">
+            <img src="/src/assets/location_black.png" width="16" />
+            <span className="size-1">{location}</span>
           </div>
           <span className="size-5">
             {weather?.forecast?.current?.temp_c || "-"}°C /{" "}
@@ -124,6 +105,119 @@ function WeatherWidget() {
         </div>
       ) : undefined}
 
+      <div className="row right --toggle-button">
+        {expand ? (
+          <button
+            onClick={() => useExpand(false)}
+            className="toggle-more size-1"
+            tabIndex={1}
+          >
+            Show less
+          </button>
+        ) : (
+          <button
+            onClick={() => useExpand(true)}
+            className="toggle-more size-1"
+            tabIndex={1}
+          >
+            Show more
+          </button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function WeatherWidgetFullscreen(weather) {
+  const location = getLocation(weather)
+  const [expand, useExpand] = useState(false)
+
+  return (
+    <div className="wrapper weather-widget-fullscreen">
+      <div className="--main">
+        <div className="row full --location">
+          <img src="/src/assets/location_white.png" width="16" />
+          <span className="size-1">{location}</span>
+        </div>
+        <div className="row full icon">
+          <img
+            src={
+              weather?.forecast?.current?.condition?.icon ||
+              "/src/assets/error.png"
+            }
+          />
+        </div>
+        <div className="col full spaced">
+          <span className="size-5">
+            {weather?.forecast?.current?.temp_c || "-"}°C /{" "}
+            {weather?.forecast?.current?.temp_f || "-"}°F
+          </span>
+          {expand ? (
+            <span className="size-2">
+              <span className="size-1">Feels like</span> <br />{" "}
+              {weather?.forecast?.current?.feelslike_c || "-"}
+              °C / {weather?.forecast?.current?.feelslike_f || "-"}°F
+            </span>
+          ) : undefined}
+          <span className="size-4">
+            {weather?.forecast?.current?.condition?.text || "-"}
+          </span>
+        </div>
+      </div>
+
+      <div className="col --extra-info spaced">
+        <span className="size-2">
+          <span className="size-1">Max. Temp.</span>
+          <br />
+          {weather?.forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_c || "-"}
+          °C /{" "}
+          {weather?.forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_f || "-"}
+          °F
+        </span>
+        <span className="size-2">
+          <span className="size-1">Min. Temp.</span>
+          <br />
+          {weather?.forecast?.forecast?.forecastday?.[0]?.day?.mintemp_c || "-"}
+          °C /{" "}
+          {weather?.forecast?.forecast?.forecastday?.[0]?.day?.mintemp_f || "-"}
+          °F
+        </span>
+        {expand ? (
+          <div className="col right">
+            <span className="size-2">
+              <span className="size-1">Sunrise / Sunset</span>
+              <br />
+              {weather?.forecast?.forecast?.forecastday?.[0]?.astro?.sunrise ||
+                "-"}{" "}
+              /{" "}
+              {weather?.forecast?.forecast?.forecastday?.[0]?.astro?.sunset ||
+                "-"}
+            </span>
+          </div>
+        ) : undefined}
+      </div>
+      {expand ? (
+        <div className="col --hidden-info">
+          <span className="size-2">
+            <span className="size-1">Wind Speed</span>
+            <br />
+            {weather?.forecast?.current?.wind_mph || "-"} mph /{" "}
+            {weather?.forecast?.current?.wind_kph || "-"} kph
+          </span>
+          <span className="size-2">
+            <span className="size-1">Humidity</span>
+            <br />
+            {weather?.forecast?.current?.humidity || "-"} mph /{" "}
+            {weather?.forecast?.current?.humidity || "-"} kph
+          </span>
+          <span className="size-2">
+            <span className="size-1">Pressure</span>
+            <br />
+            {weather?.forecast?.current?.pressure_mb || "-"} mb /{" "}
+            {weather?.forecast?.current?.pressure_in || "-"} in
+          </span>
+        </div>
+      ) : undefined}
       <div className="row right --toggle-button">
         {expand ? (
           <button

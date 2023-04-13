@@ -1,52 +1,97 @@
-.wrapper.weather-widget {
+.wrapper.weather-widget,
+.wrapper.weather-widget-fullscreen {
   width: 100%;
   max-width: 600px;
   padding: 2rem;
   border-radius: 10px;
   background-color: white;
 }
-.wrapper.weather-widget.vertical {
+.wrapper.weather-widget-fullscreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   max-width: 100vw;
+  min-height: 100vh;
   border-radius: 0;
   background-color: transparent;
+  color: white;
+  gap: 5rem;
 }
 
 .wrapper.weather-widget .icon {
   padding: 0 15%;
 }
+.wrapper.weather-widget-fullscreen .icon {
+  padding: 20% 15%;
+}
 
-.wrapper.weather-widget .toggle-more {
+.wrapper.weather-widget .toggle-more,
+.wrapper.weather-widget-fullscreen .toggle-more {
   background: none;
   border: none;
   cursor: pointer;
   text-decoration: underline;
 }
+.wrapper.weather-widget-fullscreen .toggle-more {
+  color: white;
+}
 
-.wrapper.weather-widget .col {
+/* layout styles */
+.wrapper.weather-widget .col,
+.wrapper.weather-widget-fullscreen .col {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   padding: 2rem;
 }
-.wrapper.weather-widget .col.left {
+.wrapper.weather-widget-fullscreen .col {
+  padding: 0;
+}
+
+.wrapper.weather-widget-fullscreen .col.spaced {
+  gap: 1rem;
+}
+
+.wrapper.weather-widget .col.left,
+.wrapper.weather-widget-fullscreen .col.left {
   align-items: flex-start;
 }
-.wrapper.weather-widget .col.right {
+
+.wrapper.weather-widget .col.right,
+.wrapper.weather-widget-fullscreen .col.right {
   align-items: flex-end;
 }
 
-.wrapper.weather-widget .row {
+.wrapper.weather-widget .row,
+.wrapper.weather-widget-fullscreen .row {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.wrapper.weather-widget .row.left {
+
+.wrapper.weather-widget .row.left,
+.wrapper.weather-widget-fullscreen .row.left {
   justify-content: flex-start;
 }
-.wrapper.weather-widget .row.right {
+
+.wrapper.weather-widget .row.right,
+.wrapper.weather-widget-fullscreen .row.right {
   justify-content: flex-end;
+}
+
+.wrapper.weather-widget .full,
+.wrapper.weather-widget-fullscreen .full {
+  width: 100%;
+}
+
+/* special layout rules */
+.wrapper.weather-widget-fullscreen .--main,
+.wrapper.weather-widget-fullscreen .--extra-info,
+.wrapper.weather-widget-fullscreen .--hidden-info {
+  text-align: center;
 }
 
 .wrapper.weather-widget .--extra-info {
@@ -54,10 +99,12 @@
   align-items: flex-start;
 }
 
-.wrapper.weather-widget .full {
-  width: 100%;
+.wrapper.weather-widget .--location,
+.wrapper.weather-widget-fullscreen .--location {
+  align-items: center;
 }
 
+/* text sizing rules */
 .size-1 {
   font-size: 0.9rem;
 }
