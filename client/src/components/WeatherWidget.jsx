@@ -105,7 +105,7 @@ function WeatherWidget() {
         {expand ? (
           <button
             onClick={() => useExpand(false)}
-            className="toggle-more"
+            className="toggle-more size-1"
             tabIndex={1}
           >
             Show less
@@ -113,7 +113,7 @@ function WeatherWidget() {
         ) : (
           <button
             onClick={() => useExpand(true)}
-            className="toggle-more"
+            className="toggle-more size-1"
             tabIndex={1}
           >
             Show more

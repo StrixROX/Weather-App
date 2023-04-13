@@ -1,7 +1,7 @@
 .wrapper.weather-widget {
   width: 100%;
   max-width: 600px;
-  padding: 3%;
+  padding: 2rem;
   border-radius: 10px;
   background-color: white;
 }
@@ -22,7 +22,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 3%;
+  padding: 2rem;
 }
 .wrapper.weather-widget .col.left {
   align-items: flex-start;
@@ -54,17 +54,17 @@
 }
 
 .size-1 {
-  font-size: 14px;
+  font-size: 0.9rem;
 }
 .size-2 {
-  font-size: 16px;
+  font-size: 1.1rem;
 }
 .size-3 {
-  font-size: 18px;
+  font-size: 1.3rem;
 }
 .size-4 {
-  font-size: 20px;
+  font-size: 1.4rem;
 }
 .size-5 {
-  font-size: 28px;
+  font-size: 2rem;
 }
