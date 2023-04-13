@@ -12,8 +12,11 @@ function WeatherProvider({ children }) {
 
   useEffect(() => {
     const getWeatherData = async () => {
+      const d = new Date()
+      const hour = d.getHours()
+
       const weatherForecast = await axios
-        .get(`${BASE_URL}/${city}/forecast`)
+        .get(`${BASE_URL}/${city}/forecast/${hour}`)
         .then((res) => res.data)
         .catch((err) => {
           console.log(err)
