@@ -7,7 +7,12 @@ require("dotenv").config()
 const app = express()
 const port = process.env.PORT || 3000
 
-app.use(cors())
+app.use(
+  cors({
+    origin: process.env.CLIENT_ENDPOINT || "http://localhost:5173",
+    optionsSuccessStatus: 200,
+  })
+)
 
 const baseUrl = "http://api.weatherapi.com/v1"
 const key = process.env.API_KEY
