@@ -19,7 +19,7 @@ function WeatherWidget() {
 
   return (
     <div>
-      <p>Today's weather:</p>
+      <h3>Today's weather</h3>
       <p>Location: {getLocation()}</p>
       <p>Weather: {weather?.current?.current?.condition?.text || "-"}</p>
       <p>
@@ -30,10 +30,20 @@ function WeatherWidget() {
         Feels Like: {weather?.current?.current?.feelslike_c || "-"}°C /{" "}
         {weather?.current?.current?.feelslike_f || "-"}°F
       </p>
-      <p>Max. Temperature: {"-"}</p>
-      <p>Min. Temperature: {"-"}</p>
+      <p>
+        Max. Temperature:{" "}
+        {weather?.forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_c || "-"}°C
+        / {weather?.forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_f || "-"}
+        °F
+      </p>
+      <p>
+        Min. Temperature:{" "}
+        {weather?.forecast?.forecast?.forecastday?.[0]?.day?.mintemp_c || "-"}°C
+        / {weather?.forecast?.forecast?.forecastday?.[0]?.day?.mintemp_f || "-"}
+        °F
+      </p>
       <p></p>
-      <pre>{JSON.stringify(weather, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(weather, null, 2)}</pre> */}
     </div>
   )
 }

@@ -11,14 +11,25 @@ function WeatherProvider({ children }) {
   const [city, useCity] = useState("new-delhi")
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/${city}/current`)
-      .then((res) => {
-        useWeatherData({ ...weatherData, current: res.data })
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    const getWeatherData = async () => {
+      const weatherCurrent = await axios
+        .get(`${BASE_URL}/${city}/current`)
+        .then((res) => res.data)
+        .catch((err) => {
+          console.log(err)
+        })
+
+      const weatherForecast = await axios
+        .get(`${BASE_URL}/${city}/forecast`)
+        .then((res) => res.data)
+        .catch((err) => {
+          console.log(err)
+        })
+
+      return { current: weatherCurrent, forecast: weatherForecast }
+    }
+
+    getWeatherData().then((res) => useWeatherData({ ...weatherData, ...res }))
   }, [city])
 
   return (
