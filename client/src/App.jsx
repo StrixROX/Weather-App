@@ -1,9 +1,14 @@
 import "./css/app.css"
 
+import { WeatherSimple } from "./components/WeatherSimple"
+import { WeatherProvider } from "./contexts/WeatherContext"
+
 function App() {
   return (
     <div className="wrapper weather-app">
-      <h1>My Weather App</h1>
+      <WeatherProvider>
+        <WeatherSimple />
+      </WeatherProvider>
     </div>
   )
 }
