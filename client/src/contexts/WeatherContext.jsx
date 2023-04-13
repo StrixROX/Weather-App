@@ -11,7 +11,6 @@ function WeatherProvider({ children }) {
   const [city, useCity] = useState("new-delhi")
 
   useEffect(() => {
-    console.log(`${BASE_URL}/${city}/current`)
     axios
       .get(`${BASE_URL}/${city}/current`)
       .then((res) => {
