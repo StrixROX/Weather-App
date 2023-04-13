@@ -19,24 +19,15 @@ const normalisedCityName = (name) => {
     .join("-")
 }
 
-app.get("/:city/current/", (request, response) => {
-  let city = normalisedCityName(request.params.city)
+app.get("/:city/forecast/:hour/:days?", (request, response) => {
+  const city = normalisedCityName(request.params.city)
+  const days = request.params.days || 1
+  const hour = request.params.hour
 
   axios
-    .get(`${baseUrl}/current.json?key=${key}&q=${city}`)
-    .then((res) => response.status(res.status).json(res.data))
-    .catch((err) => {
-      console.log(err)
-      response.status(err.response.status).json(err.response.data)
-    })
-})
-
-app.get("/:city/forecast/:days?", (request, response) => {
-  let city = normalisedCityName(request.params.city)
-  let days = request.params.days || 1
-
-  axios
-    .get(`${baseUrl}/forecast.json?key=${key}&q=${city}&days=${days}`)
+    .get(
+      `${baseUrl}/forecast.json?key=${key}&q=${city}&days=${days}&hour=${hour}`
+    )
     .then((res) => response.status(res.status).json(res.data))
     .catch((err) => {
       console.log(err)
