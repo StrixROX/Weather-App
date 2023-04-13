@@ -1,0 +1,70 @@
+.wrapper.weather-widget {
+  width: 100%;
+  max-width: 600px;
+  padding: 3%;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.wrapper.weather-widget .icon {
+  padding: 0 15%;
+}
+
+.wrapper.weather-widget .toggle-more {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.wrapper.weather-widget .col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 3%;
+}
+.wrapper.weather-widget .col.left {
+  align-items: flex-start;
+}
+.wrapper.weather-widget .col.right {
+  align-items: flex-end;
+}
+
+.wrapper.weather-widget .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper.weather-widget .row.left {
+  justify-content: flex-start;
+}
+.wrapper.weather-widget .row.right {
+  justify-content: flex-end;
+}
+
+.wrapper.weather-widget .row.extra-info {
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.wrapper.weather-widget .full {
+  width: 100%;
+}
+
+.size-1 {
+  font-size: 14px;
+}
+.size-2 {
+  font-size: 16px;
+}
+.size-3 {
+  font-size: 18px;
+}
+.size-4 {
+  font-size: 20px;
+}
+.size-5 {
+  font-size: 28px;
+}

@@ -1,3 +1,5 @@
+import "../css/weather-widget.css"
+
 import { useContext, useState } from "react"
 import { WeatherContext } from "../contexts/WeatherContext"
 
@@ -19,65 +21,105 @@ function WeatherWidget() {
   }
 
   return (
-    <div>
-      <h3>Today's weather</h3>
-      <p>Location: {getLocation()}</p>
-      <p>Weather: {weather?.forecast?.current?.condition?.text || "-"}</p>
-      <p>
-        Temperature: {weather?.forecast?.current?.temp_c || "-"}°C /{" "}
-        {weather?.forecast?.current?.temp_f || "-"}°F
-      </p>
+    <div className="wrapper weather-widget">
+      <div className="row full">
+        <img
+          src={
+            weather?.forecast?.current?.condition?.icon ||
+            "/src/assets/error.png"
+          }
+          className="icon"
+        />
+        <div className="data col left full">
+          <div className="row right full">
+            <img src="/src/assets/location.png" width="16" />
+            <span className="size-1">{getLocation()}</span>
+          </div>
+          <span className="size-5">
+            {weather?.forecast?.current?.temp_c || "-"}°C /{" "}
+            {weather?.forecast?.current?.temp_f || "-"}°F
+          </span>
+          {expand ? (
+            <span className="size-2">
+              Feels like <br /> {weather?.forecast?.current?.feelslike_c || "-"}
+              °C / {weather?.forecast?.current?.feelslike_f || "-"}°F
+            </span>
+          ) : undefined}
+          <span className="size-4">
+            {weather?.forecast?.current?.condition?.text || "-"}
+          </span>
+        </div>
+      </div>
+      <div className="row extra-info">
+        <div className="col left">
+          <span className="size-2">
+            Max. Temp:{" "}
+            {weather?.forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_c ||
+              "-"}
+            °C /{" "}
+            {weather?.forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_f ||
+              "-"}
+            °F
+            <br />
+            Min. Temp:{" "}
+            {weather?.forecast?.forecast?.forecastday?.[0]?.day?.mintemp_c ||
+              "-"}
+            °C /{" "}
+            {weather?.forecast?.forecast?.forecastday?.[0]?.day?.mintemp_f ||
+              "-"}
+            °F
+          </span>
+        </div>
+        <div className="col right">
+          {expand ? (
+            <span className="size-2">
+              Sunrise:{" "}
+              {weather?.forecast?.forecast?.forecastday?.[0]?.astro?.sunrise ||
+                "-"}
+              <br />
+              Sunset:{" "}
+              {weather?.forecast?.forecast?.forecastday?.[0]?.astro?.sunset ||
+                "-"}
+            </span>
+          ) : undefined}
+        </div>
+      </div>
       {expand ? (
-        <p>
-          Feels Like: {weather?.forecast?.current?.feelslike_c || "-"}°C /{" "}
-          {weather?.forecast?.current?.feelslike_f || "-"}°F
-        </p>
+        <div className="col left">
+          <span className="size-2">
+            Wind Speed: {weather?.forecast?.current?.wind_mph || "-"} mph /{" "}
+            {weather?.forecast?.current?.wind_kph || "-"} kph
+          </span>
+          <span className="size-2">
+            Humidity: {weather?.forecast?.current?.humidity || "-"} mph /{" "}
+            {weather?.forecast?.current?.humidity || "-"} kph
+          </span>
+          <span className="size-2">
+            Pressure: {weather?.forecast?.current?.pressure_mb || "-"} mb /{" "}
+            {weather?.forecast?.current?.pressure_in || "-"} in
+          </span>
+        </div>
       ) : undefined}
-      <p>
-        Max. Temperature:{" "}
-        {weather?.forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_c || "-"}°C
-        / {weather?.forecast?.forecast?.forecastday?.[0]?.day?.maxtemp_f || "-"}
-        °F
-      </p>
-      <p>
-        Min. Temperature:{" "}
-        {weather?.forecast?.forecast?.forecastday?.[0]?.day?.mintemp_c || "-"}°C
-        / {weather?.forecast?.forecast?.forecastday?.[0]?.day?.mintemp_f || "-"}
-        °F
-      </p>
-      {expand ? (
-        <p>
-          Wind Speed: {weather?.forecast?.current?.wind_mph || "-"}mph /{" "}
-          {weather?.forecast?.current?.wind_kph || "-"}kph
-        </p>
-      ) : undefined}
-      {expand ? (
-        <p>
-          Humidity: {weather?.forecast?.current?.humidity || "-"}mph /{" "}
-          {weather?.forecast?.current?.humidity || "-"}kph
-        </p>
-      ) : undefined}
-      {expand ? (
-        <p>
-          Pressure: {weather?.forecast?.current?.pressure_mb || "-"}mb /{" "}
-          {weather?.forecast?.current?.pressure_in || "-"}in
-        </p>
-      ) : undefined}
-      {expand ? (
-        <p>
-          Sunrise:{" "}
-          {weather?.forecast?.forecast?.forecastday?.[0]?.astro?.sunrise || "-"}
-          <br />
-          Sunset:{" "}
-          {weather?.forecast?.forecast?.forecastday?.[0]?.astro?.sunset || "-"}
-        </p>
-      ) : undefined}
-      {expand ? (
-        <button onClick={() => useExpand(false)}>Show more</button>
-      ) : (
-        <button onClick={() => useExpand(true)}>Show less</button>
-      )}
-      <pre>{JSON.stringify(weather, null, 2)}</pre>
+
+      <div className="row right">
+        {expand ? (
+          <button
+            onClick={() => useExpand(false)}
+            className="toggle-more"
+            tabIndex={1}
+          >
+            Show less
+          </button>
+        ) : (
+          <button
+            onClick={() => useExpand(true)}
+            className="toggle-more"
+            tabIndex={1}
+          >
+            Show more
+          </button>
+        )}
+      </div>
     </div>
   )
 }
