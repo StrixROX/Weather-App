@@ -1,4 +1,7 @@
 import "../css/weather-widget.css"
+import errorImg from "../assets/error.png"
+import locationWhiteImg from "../assets/location_white.png"
+import locationBlackImg from "../assets/location_black.png"
 
 import { useContext, useState } from "react"
 import { WeatherContext } from "../contexts/WeatherContext"
@@ -28,15 +31,12 @@ function WeatherWidgetSimple(weather) {
     <div className="wrapper weather-widget">
       <div className="row full --main">
         <img
-          src={
-            weather?.forecast?.current?.condition?.icon ||
-            "/src/assets/error.png"
-          }
+          src={weather?.forecast?.current?.condition?.icon || errorImg}
           className="icon"
         />
         <div className="data col left full">
           <div className="row right full --location">
-            <img src="/src/assets/location_black.png" width="16" />
+            <img src={locationBlackImg} width="16" />
             <span className="size-1">{location}</span>
           </div>
           <span className="size-5">
@@ -136,16 +136,11 @@ function WeatherWidgetFullscreen(weather) {
     <div className="wrapper weather-widget-fullscreen">
       <div className="--main">
         <div className="row full --location">
-          <img src="/src/assets/location_white.png" width="16" />
+          <img src={locationWhiteImg} width="16" />
           <span className="size-1">{location}</span>
         </div>
         <div className="row full icon">
-          <img
-            src={
-              weather?.forecast?.current?.condition?.icon ||
-              "/src/assets/error.png"
-            }
-          />
+          <img src={weather?.forecast?.current?.condition?.icon || errorImg} />
         </div>
         <div className="col full spaced">
           <span className="size-5">
