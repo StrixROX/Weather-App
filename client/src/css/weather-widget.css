@@ -5,6 +5,11 @@
   border-radius: 10px;
   background-color: white;
 }
+.wrapper.weather-widget.vertical {
+  max-width: 100vw;
+  border-radius: 0;
+  background-color: transparent;
+}
 
 .wrapper.weather-widget .icon {
   padding: 0 15%;
@@ -44,7 +49,7 @@
   justify-content: flex-end;
 }
 
-.wrapper.weather-widget .row.extra-info {
+.wrapper.weather-widget .--extra-info {
   justify-content: space-between;
   align-items: flex-start;
 }
